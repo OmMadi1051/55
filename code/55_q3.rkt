@@ -46,3 +46,21 @@
       (inorder-acc (cadr tree)
                    (cons (car tree)
                          (inorder-acc (caddr tree) acc)))))
+
+
+; preorder-acc : tree list -> list
+; Input:  tree, either '() or (value left right).
+;         acc, the list that the result is placed in front of.
+; Output: the values of tree in preorder (node, left, right),
+;         followed by the elements of acc.
+; Recursive reading:
+;   Base case: the empty tree '() adds nothing, so the result is acc.
+;   Recursive step: first build the preorder list of the right subtree
+;   in front of acc, then build the preorder list of the left subtree
+;   in front of that, then cons the node's value onto the front.
+(define (preorder-acc tree acc)
+  (if (null? tree)
+      acc
+      (cons (car tree)
+            (preorder-acc (cadr tree)
+                          (preorder-acc (caddr tree) acc)))))
