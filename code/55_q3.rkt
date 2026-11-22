@@ -28,3 +28,21 @@
         ((and (null? (cadr tree)) (null? (caddr tree))) 1)
         (else (+ (leaf-count (cadr tree))
                  (leaf-count (caddr tree))))))
+
+
+; inorder-acc : tree list -> list
+; Input:  tree, either '() or (value left right).
+;         acc, the list that the result is placed in front of.
+; Output: the values of tree in inorder (left, node, right),
+;         followed by the elements of acc.
+; Recursive reading:
+;   Base case: the empty tree '() adds nothing, so the result is acc.
+;   Recursive step: first build the inorder list of the right subtree
+;   in front of acc, then cons the node's value onto that, then build
+;   the inorder list of the left subtree in front of the result.
+(define (inorder-acc tree acc)
+  (if (null? tree)
+      acc
+      (inorder-acc (cadr tree)
+                   (cons (car tree)
+                         (inorder-acc (caddr tree) acc)))))
