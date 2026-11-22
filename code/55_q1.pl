@@ -80,3 +80,10 @@ print_solution([p(Name, Dept, Lang, Project) | Rest]) :-
 main :-
     once(solve([1, 2, 3, 4, 5, 6, 7, 8], Solution)),
     print_solution(Solution).
+
+
+% count_solutions(+Active, -N)
+% True when N is the number of valid assignments satisfying all clues in Active.
+count_solutions(Active, N) :-
+    findall(Solution, solve(Active, Solution), Solutions),
+    length(Solutions, N).
