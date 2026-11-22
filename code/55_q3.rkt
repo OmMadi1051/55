@@ -95,4 +95,23 @@
 ;   inorder-acc returns '(), which display prints as ().
 (define (print-inorder tree)
   (display (inorder-acc tree '()))
+  (newline))
+
+
+; print-all-traversals : tree -> void
+; Input:  tree, either '() or (value left right).
+; Output: prints three lines using display: the inorder list, the
+;         preorder list, then the postorder list, each followed by
+;         a newline.
+; Reading:
+;   Build each traversal with its accumulator helper, using '() as the
+;   starting accumulator. Display each list and end its line. For the
+;   empty tree all three helpers return '(), so three lines of ()
+;   are printed.
+(define (print-all-traversals tree)
+  (display (inorder-acc tree '()))
+  (newline)
+  (display (preorder-acc tree '()))
+  (newline)
+  (display (postorder-acc tree '()))
   (newline))                                                
