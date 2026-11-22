@@ -76,7 +76,7 @@ solve(Active, Solution) :-
 % True after printing each friend's assignment in Solution on its own line.
 print_solution([]).
 print_solution([p(Name, Dept, Lang, Project) | Rest]) :-
-    format('~w [~w, ~w, ~w]~n', [Name, Dept, Lang, Project]),
+    format('~w = [~w, ~w, ~w]~n', [Name, Dept, Lang, Project]),
     print_solution(Rest).
 
 % main
