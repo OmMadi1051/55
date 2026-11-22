@@ -53,6 +53,9 @@ clue(8, Solution) :-
     member(p(_, research, Lang, data), Solution),
     Lang \= javascript.
 
+clue(9, Solution) :-
+    member(p(_, testing, _, 'AI'), Solution).
+
 
 
 % check_clues(+Active, +Solution)
