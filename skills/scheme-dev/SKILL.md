@@ -23,16 +23,23 @@ description: Guidelines, strict built-in restrictions, testing commands, and sel
 ## How to Run & Test
 - Run a solution file (should produce no output on its own):
   ```bash
-  racket code/id_q3.rkt
+  racket code/55_q3.rkt
   ```
-- Run a test file:
+- Run a test file. Build a temporary combined file, run it, and compare the output with the `;; Expected:` comments:
   ```bash
-  racket tests/test_s1.rkt
+  cat code/55_q3.rkt tests/test_s1.rkt > run_s1.rkt
+  racket run_s1.rkt
+  ```
+  ```bash
+  cat code/55_q4.rkt tests/test_s2.rkt > run_s2.rkt
+  racket run_s2.rkt
   ```
 - Test stdin-based functions (S2):
   ```bash
-  echo "42 ((1 2) (3 4 5) (6) ()) 3" | racket -e '(require "code/id_q4.rkt") (print-insert-result)'
+  (cat code/55_q4.rkt; echo "(print-insert-result)") > run_stdin.rkt
+  echo "42 ((1 2) (3 4 5) (6) ()) 3" | racket run_stdin.rkt
   ```
+- Delete the temporary `run_*.rkt` files afterwards; do not commit them.
 
 ## Self-Review Checklist (Apply Before Answering)
 1. Did I only implement the single unit of work requested (one function/helper)?

@@ -19,11 +19,11 @@ description: Guidelines, conventions, testing commands, and self-review checklis
 ## How to Run & Test
 - Run `main/0`:
   ```bash
-  swipl -q -f code/id_q1.pl -g main -t halt
+  swipl -q -f code/55_q1.pl -g main -t halt
   ```
 - Run a specific goal:
   ```bash
-  swipl -q -f code/id_q2.pl -g "all_equations([4,2,5,3], Es), writeln(Es)" -t halt
+  swipl -q -f code/55_q2.pl -g "all_equations([4,2,5,3], Es), writeln(Es)" -t halt
   ```
 - Run a test file:
   ```bash
