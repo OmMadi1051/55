@@ -114,4 +114,18 @@
   (display (preorder-acc tree '()))
   (newline)
   (display (postorder-acc tree '()))
-  (newline))                                                
+  (newline))
+
+
+; print-height-and-leaves : tree -> void
+; Input:  tree, either '() or (value left right).
+; Output: prints the two-element list (height leaf-count) on one line
+;         using display, followed by a newline.
+; Reading:
+;   Compute the height with tree-height and the leaf count with
+;   leaf-count, put them together with list, display the result, then
+;   end the line. For the empty tree these are 0 and 0, so (0 0) is
+;   printed.
+(define (print-height-and-leaves tree)
+  (display (list (tree-height tree) (leaf-count tree)))
+  (newline))                                                  
