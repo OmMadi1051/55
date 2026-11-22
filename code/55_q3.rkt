@@ -82,4 +82,17 @@
       acc
       (postorder-acc (cadr tree)
                      (postorder-acc (caddr tree)
-                                    (cons (car tree) acc)))))            
+                                    (cons (car tree) acc)))))
+
+
+; print-inorder : tree -> void
+; Input:  tree, either '() or (value left right).
+; Output: prints the inorder list of the tree's values on one line
+;         using display, followed by a newline.
+; Reading:
+;   Build the inorder list with inorder-acc and '() as the starting
+;   accumulator, display it, then end the line. For the empty tree,
+;   inorder-acc returns '(), which display prints as ().
+(define (print-inorder tree)
+  (display (inorder-acc tree '()))
+  (newline))                                                
