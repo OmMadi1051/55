@@ -1,4 +1,4 @@
-:- consult('../code/id_q2.pl').
+:- consult('../code/55_q2.pl').
 
 run_tests :-
     % PDF Example 1: [4,2,5,3]

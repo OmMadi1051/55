@@ -1,4 +1,4 @@
-:- consult('../code/id_q1.pl').
+:- consult('../code/55_q1.pl').
 
 run_tests :-
     writeln('--- P1.a: main/0 output ---'),
