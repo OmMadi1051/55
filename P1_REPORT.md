@@ -55,8 +55,8 @@ swipl -q -f code/55_q1.pl -g "count_solutions([1,2,3,4,5,6,7,8], N8), count_solu
 
 ### Unique Solution (Clues 1–9)
 ```text
-Alex [design, java, embedded]
-Ben [development, javascript, web]
-Carla [testing, python, AI]
-Dana [research, c++, data]
+Alex = [design, java, embedded]
+Ben = [development, javascript, web]
+Carla = [testing, python, AI]
+Dana = [research, c++, data]
 ```
