@@ -63,30 +63,67 @@
   (or (null? e) (pair? e)))
 
 
+
+; make-inserter : atom (number -> boolean) -> (list -> list)
+; Input:  x, an atom to insert.
+;         len-ok?, a function taking one number and returning a boolean.
+; Output: a function of one argument (a possibly nested list) that
+;         inserts x at the front of every list, at every level of
+;         nesting, whose original length satisfies len-ok?.
+; Recursive reading (of the returned function, called insert):
+;   Base cases: an atom is left unchanged (list-like? is false for it),
+;   and the empty list '() has nothing to process, so my-map returns
+;   '(); it gets x in front only if (len-ok? 0) is true.
+;   Recursive step: first process every element of lst: a sublist is
+;   replaced by (insert element), and an atom stays as it is. Then
+;   test the length of the ORIGINAL lst with (len-ok? (my-length lst)).
+;   If it is true, cons x onto the front of the processed list;
+;   otherwise return the processed list as it is.
+(define (make-inserter x len-ok?)
+  (letrec ((insert
+            (lambda (lst)
+              (let ((processed
+                     (my-map (lambda (e)
+                               (if (list-like? e)
+                                   (insert e)
+                                   e))
+                             lst)))
+                (if (len-ok? (my-length lst))
+                    (cons x processed)
+                    processed)))))
+    insert))
+
+
 ; insert-if-short : atom list integer -> list
 ; Input:  x, an atom to insert.
-;         lst, a possibly nested list (atoms and sublists, no dotted pairs).
+;         lst, a possibly nested list (no dotted pairs).
 ;         n, an integer with n >= 0.
 ; Output: lst with x inserted at the front of every list, at every
 ;         level of nesting, whose original length is less than n.
-; Recursive reading:
-;   Base cases: an atom is left unchanged (it is handled inside the
-;   map below, where list-like? is false). The empty list '() has no
-;   elements to process, so my-map returns '(), and it gets x in front
-;   only if its length 0 is less than n.
-;   Recursive step: first process every element of lst: a sublist is
-;   replaced by (insert-if-short x element n), and an atom stays as it
-;   is. Then look at the length of the ORIGINAL lst (my-length lst).
-;   If it is less than n, cons x onto the front of the processed list;
-;   otherwise return the processed list as it is.
+; Reading:
+;   Not recursive itself. Build an inserter with make-inserter, where
+;   len-ok? is a function that checks whether a length is less than n,
+;   then apply that inserter to lst. All the recursion over nested
+;   lists happens inside the function that make-inserter returns.
 (define (insert-if-short x lst n)
-  (let ((processed
-         (my-map (lambda (e)
-                   (if (list-like? e)
-                       (insert-if-short x e n)
-                       e))
-                 lst)))
-    (if (< (my-length lst) n)
-        (cons x processed)
-        processed)))
+  ((make-inserter x (lambda (len) (< len n))) lst))
+
+
+; print-insert-result : -> void
+; Input:  none. Reads three values from standard input with read, in
+;         this order: x (an atom), lst (a possibly nested list), n (an
+;         integer).
+; Output: prints the result of (insert-if-short x lst n) on one line
+;         using display, followed by a newline. Prints no prompts or
+;         other text.
+; Reading:
+;   Not recursive. Read x, then lst, then n, in that order, then
+;   display the result and end the line. let* is used so the three
+;   reads happen one after another, left to right.
+(define (print-insert-result)
+  (let* ((x (read))
+         (lst (read))
+         (n (read)))
+    (display (insert-if-short x lst n))
+    (newline)))
 
